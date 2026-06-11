@@ -488,7 +488,7 @@
 .ledger-table__head,
 .ledger-row {
   display: grid;
-  grid-template-columns: 154px 150px 86px 1.08fr 132px 72px 1fr 84px;
+  grid-template-columns: 48px 154px 150px 86px 1.08fr 110px 72px 1fr 84px;
   align-items: center;
   gap: 12px;
 }
@@ -505,14 +505,15 @@
   line-height: 18px;
 }
 
-.ledger-table__head span:nth-child(3),
-.ledger-table__head span:nth-child(6) {
+.ledger-table__head span:nth-child(1),
+.ledger-table__head span:nth-child(4),
+.ledger-table__head span:nth-child(7) {
   justify-self: center;
   text-align: center;
 }
 
-.ledger-table__head span:nth-child(5),
-.ledger-table__head span:nth-child(8) {
+.ledger-table__head span:nth-child(6),
+.ledger-table__head span:nth-child(9) {
   justify-self: end;
   text-align: right;
 }
@@ -539,10 +540,19 @@
   background: #fbfcff;
 }
 
-.ledger-row > div:nth-child(3),
-.ledger-row > div:nth-child(6) {
+.ledger-row > div:nth-child(1),
+.ledger-row > div:nth-child(4),
+.ledger-row > div:nth-child(7) {
   display: flex;
   justify-content: center;
+}
+
+.ledger-row__index {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 850;
+  line-height: 18px;
+  text-align: center;
 }
 
 .ledger-row__time,
@@ -823,6 +833,42 @@
   padding: 0 18px 18px;
 }
 
+.app-result-popup {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 150px;
+  height: 48px;
+  padding: 0 18px 0 14px;
+  border: 1px solid rgba(22, 163, 74, 0.18);
+  border-radius: 8px;
+  color: var(--text-primary);
+  background: #ffffff;
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.18);
+  transform: translateX(-50%);
+}
+
+.app-result-popup__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  color: #ffffff;
+  background: var(--success);
+}
+
+.app-result-popup strong {
+  font-size: 14px;
+  font-weight: 850;
+  line-height: 20px;
+}
+
 @media print {
   html,
   body {
@@ -876,6 +922,6 @@
 
   .ledger-table__head,
   .ledger-row {
-    grid-template-columns: 154px 150px 86px 1.08fr 132px 72px 1fr;
+    grid-template-columns: 48px 154px 150px 86px 1.08fr 110px 72px 1fr;
   }
 }

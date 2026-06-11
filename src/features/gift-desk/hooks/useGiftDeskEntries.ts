@@ -128,34 +128,41 @@ export const useGiftDeskEntries = () => {
     }))
   }
 
-  const addEntry = (entry: GiftDeskEntry) => {
-    setEntries((currentEntries) => [entry, ...currentEntries])
+  const runRemoteWrite = async (write: () => Promise<void>) => {
+    if (!isFirebaseConfigured) {
+      return
+    }
 
-    if (isFirebaseConfigured) {
-      void upsertGiftDeskEntry(entry).catch(reportWriteError)
+    try {
+      await write()
+    } catch (error) {
+      reportWriteError(error)
+      throw error
     }
   }
 
-  const updateEntry = (entry: GiftDeskEntry) => {
+  const addEntry = async (entry: GiftDeskEntry) => {
+    setEntries((currentEntries) => [entry, ...currentEntries])
+
+    await runRemoteWrite(() => upsertGiftDeskEntry(entry))
+  }
+
+  const updateEntry = async (entry: GiftDeskEntry) => {
     setEntries((currentEntries) =>
       currentEntries.map((currentEntry) =>
         currentEntry.id === entry.id ? entry : currentEntry,
       ),
     )
 
-    if (isFirebaseConfigured) {
-      void upsertGiftDeskEntry(entry).catch(reportWriteError)
-    }
+    await runRemoteWrite(() => upsertGiftDeskEntry(entry))
   }
 
-  const deleteEntry = (entryId: string) => {
+  const deleteEntry = async (entryId: string) => {
     setEntries((currentEntries) =>
       currentEntries.filter((entry) => entry.id !== entryId),
     )
 
-    if (isFirebaseConfigured) {
-      void removeGiftDeskEntry(entryId).catch(reportWriteError)
-    }
+    await runRemoteWrite(() => removeGiftDeskEntry(entryId))
   }
 
   return {

@@ -6,7 +6,7 @@ type AppConfirmModalProps = {
   confirmLabel: string
   isOpen: boolean
   onCancel: () => void
-  onConfirm: () => void
+  onConfirm: () => Promise<void> | void
   title: string
 }
 

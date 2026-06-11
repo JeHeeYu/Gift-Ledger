@@ -38,6 +38,7 @@ const GiftDeskTable = ({
   return (
     <div className="ledger-table">
       <div className="ledger-table__head">
+        <span>번호</span>
         <span>접수</span>
         <span>이름</span>
         <span>구분</span>
@@ -48,11 +49,12 @@ const GiftDeskTable = ({
         <span>관리</span>
       </div>
       <div className="ledger-table__body">
-        {entries.map((entry) => (
+        {entries.map((entry, index) => (
           <article
             className="ledger-row"
             key={entry.id}
           >
+            <div className="ledger-row__index">{index + 1}</div>
             <div className="ledger-row__time">
               <strong>{formatReceivedAt(entry.receivedAt)}</strong>
             </div>

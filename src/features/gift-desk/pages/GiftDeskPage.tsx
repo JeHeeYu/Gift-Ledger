@@ -1,5 +1,8 @@
 import { useMemo, useState } from 'react'
-import { AppConfirmModal } from '../../../shared/components'
+import {
+  AppConfirmModal,
+  AppResultPopup,
+} from '../../../shared/components'
 import {
   GiftDeskForm,
   GiftDeskHeader,
@@ -67,6 +70,10 @@ const GiftDeskPage = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [sideFilter, setSideFilter] = useState<GiftDeskSideFilter>('all')
   const [sortMode, setSortMode] = useState<GiftDeskSortMode>('recent')
+  const [resultPopup, setResultPopup] = useState<{
+    id: number
+    message: string
+  } | null>(null)
 
   const summary = useMemo(
     () => calculateGiftDeskSummary(entries),
@@ -115,23 +122,36 @@ const GiftDeskPage = () => {
     setEditingEntryId(null)
   }
 
+  const showResultPopup = (message: string) => {
+    setResultPopup({
+      id: Date.now(),
+      message,
+    })
+  }
+
   const handleSubmit = () => {
     if (editingEntryId) {
       const editingEntry = entries.find((entry) => entry.id === editingEntryId)
 
-      updateEntry(
-        updateEntryFromForm(
-          editingEntryId,
-          form,
-          editingEntry?.receivedAt ?? new Date().toISOString(),
-        ),
-      )
-      resetForm()
+      void updateEntry(
+          updateEntryFromForm(
+            editingEntryId,
+            form,
+            editingEntry?.receivedAt ?? new Date().toISOString(),
+          ),
+        )
+        .then(() => {
+          resetForm()
+          showResultPopup('수정 완료')
+        })
+        .catch(() => undefined)
       return
     }
 
-    addEntry(createEntryFromForm(form))
-    resetForm()
+    void addEntry(createEntryFromForm(form)).then(() => {
+      resetForm()
+      showResultPopup('등록 완료')
+    }).catch(() => undefined)
   }
 
   const handleEdit = (entry: GiftDeskEntry) => {
@@ -139,16 +159,22 @@ const GiftDeskPage = () => {
     setForm(entryToFormState(entry))
   }
 
-  const handleDeleteConfirm = () => {
-    if (pendingDeleteEntry) {
-      deleteEntry(pendingDeleteEntry.id)
+  const handleDeleteConfirm = async () => {
+    try {
+      if (pendingDeleteEntry) {
+        await deleteEntry(pendingDeleteEntry.id)
 
-      if (pendingDeleteEntry.id === editingEntryId) {
-        resetForm()
+        if (pendingDeleteEntry.id === editingEntryId) {
+          resetForm()
+        }
+
+        showResultPopup('삭제 완료')
       }
-    }
 
-    setPendingDeleteEntry(null)
+      setPendingDeleteEntry(null)
+    } catch {
+      return
+    }
   }
 
   const handleExport = () => {
@@ -212,6 +238,12 @@ const GiftDeskPage = () => {
         onCancel={() => setPendingDeleteEntry(null)}
         onConfirm={handleDeleteConfirm}
         title="내역 삭제"
+      />
+      <AppResultPopup
+        isOpen={resultPopup !== null}
+        key={resultPopup?.id ?? 'closed'}
+        message={resultPopup?.message ?? ''}
+        onClose={() => setResultPopup(null)}
       />
     </main>
   )
