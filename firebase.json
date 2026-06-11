@@ -3,6 +3,7 @@
     "rules": "firestore.rules"
   },
   "hosting": {
+    "site": "giftdesk",
     "public": "dist",
     "ignore": [
       "firebase.json",
