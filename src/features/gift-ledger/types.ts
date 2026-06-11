@@ -6,7 +6,6 @@ export type GiftLedgerEntry = {
   affiliation: string
   amount: number
   attendant: string
-  envelopeNo: string
   guestName: string
   id: string
   memo: string
@@ -20,11 +19,9 @@ export type GiftLedgerFormState = {
   affiliation: string
   amountText: string
   attendant: string
-  envelopeNo: string
   guestName: string
   memo: string
   method: GiftMethod
-  receivedAtLocal: string
   relation: string
   side: GiftSide
 }

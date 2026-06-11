@@ -169,33 +169,13 @@ const GiftLedgerForm = ({
         />
       </label>
 
-      <div className="form-grid form-grid--two">
-        <label className="form-field">
-          <span>봉투번호</span>
-          <input
-            autoComplete="off"
-            onChange={(event) => onChange('envelopeNo', event.target.value)}
-            placeholder="선택"
-            value={form.envelopeNo}
-          />
-        </label>
-        <label className="form-field">
-          <span>접수자</span>
-          <input
-            autoComplete="off"
-            onChange={(event) => onChange('attendant', event.target.value)}
-            placeholder="담당자"
-            value={form.attendant}
-          />
-        </label>
-      </div>
-
       <label className="form-field">
-        <span>접수시간</span>
+        <span>접수자</span>
         <input
-          onChange={(event) => onChange('receivedAtLocal', event.target.value)}
-          type="datetime-local"
-          value={form.receivedAtLocal}
+          autoComplete="off"
+          onChange={(event) => onChange('attendant', event.target.value)}
+          placeholder="담당자"
+          value={form.attendant}
         />
       </label>
 

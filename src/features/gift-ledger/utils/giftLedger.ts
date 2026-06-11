@@ -16,7 +16,6 @@ const CSV_HEADERS = [
   '소속',
   '금액',
   '납부',
-  '봉투번호',
   '접수자',
   '메모',
 ] as const
@@ -51,19 +50,6 @@ export const parseAmount = (value: string) => {
   return normalized ? Number(normalized) : 0
 }
 
-export const toDateTimeLocalValue = (date = new Date()) => {
-  const timezoneOffset = date.getTimezoneOffset() * 60_000
-  const localDate = new Date(date.getTime() - timezoneOffset)
-
-  return localDate.toISOString().slice(0, 16)
-}
-
-export const fromDateTimeLocalValue = (value: string) => {
-  const date = new Date(value)
-
-  return Number.isNaN(date.getTime()) ? new Date().toISOString() : date.toISOString()
-}
-
 export const formatReceivedAt = (isoValue: string) => {
   const date = new Date(isoValue)
 
@@ -83,11 +69,9 @@ export const createEmptyFormState = (): GiftLedgerFormState => ({
   affiliation: '',
   amountText: '',
   attendant: '',
-  envelopeNo: '',
   guestName: '',
   memo: '',
   method: 'cash',
-  receivedAtLocal: toDateTimeLocalValue(),
   relation: '',
   side: 'groom',
 })
@@ -98,27 +82,25 @@ export const entryToFormState = (
   affiliation: entry.affiliation,
   amountText: String(entry.amount),
   attendant: entry.attendant,
-  envelopeNo: entry.envelopeNo,
   guestName: entry.guestName,
   memo: entry.memo,
   method: entry.method,
-  receivedAtLocal: toDateTimeLocalValue(new Date(entry.receivedAt)),
   relation: entry.relation,
   side: entry.side,
 })
 
 export const createEntryFromForm = (
   form: GiftLedgerFormState,
+  receivedAt = new Date().toISOString(),
 ): GiftLedgerEntry => ({
   affiliation: form.affiliation.trim(),
   amount: parseAmount(form.amountText),
   attendant: form.attendant.trim(),
-  envelopeNo: form.envelopeNo.trim(),
   guestName: form.guestName.trim(),
   id: createEntryId(),
   memo: form.memo.trim(),
   method: form.method,
-  receivedAt: fromDateTimeLocalValue(form.receivedAtLocal),
+  receivedAt,
   relation: form.relation.trim(),
   side: form.side,
 })
@@ -126,8 +108,9 @@ export const createEntryFromForm = (
 export const updateEntryFromForm = (
   entryId: string,
   form: GiftLedgerFormState,
+  receivedAt: string,
 ): GiftLedgerEntry => ({
-  ...createEntryFromForm(form),
+  ...createEntryFromForm(form, receivedAt),
   id: entryId,
 })
 
@@ -184,7 +167,6 @@ export const doesEntryMatchSearch = (
     entry.guestName,
     entry.relation,
     entry.affiliation,
-    entry.envelopeNo,
     entry.attendant,
     entry.memo,
   ].some((value) => normalizeSearchText(value).includes(normalizedQuery))
@@ -209,7 +191,6 @@ export const createGiftLedgerCsv = (entries: GiftLedgerEntry[]) => {
     entry.affiliation,
     entry.amount,
     GIFT_METHOD_LABEL[entry.method],
-    entry.envelopeNo,
     entry.attendant,
     entry.memo,
   ])

@@ -38,7 +38,7 @@ const GiftLedgerToolbar = ({
         <AppIcon name="search" />
         <input
           onChange={(event) => onSearchQueryChange(event.target.value)}
-          placeholder="이름, 소속, 봉투번호 검색"
+          placeholder="이름, 관계, 소속, 접수자 검색"
           value={searchQuery}
         />
       </div>

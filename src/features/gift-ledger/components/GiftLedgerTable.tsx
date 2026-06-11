@@ -55,7 +55,7 @@ const GiftLedgerTable = ({
           >
             <div className="ledger-row__time">
               <strong>{formatReceivedAt(entry.receivedAt)}</strong>
-              <span>{entry.envelopeNo || '-'}</span>
+              <span>자동 기록</span>
             </div>
             <div className="ledger-row__name">
               <strong>{entry.guestName}</strong>

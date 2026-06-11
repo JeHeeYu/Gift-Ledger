@@ -116,7 +116,15 @@ const GiftLedgerPage = () => {
 
   const handleSubmit = () => {
     if (editingEntryId) {
-      updateEntry(updateEntryFromForm(editingEntryId, form))
+      const editingEntry = entries.find((entry) => entry.id === editingEntryId)
+
+      updateEntry(
+        updateEntryFromForm(
+          editingEntryId,
+          form,
+          editingEntry?.receivedAt ?? new Date().toISOString(),
+        ),
+      )
       resetForm()
       return
     }
