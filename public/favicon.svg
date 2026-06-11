@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="10" x2="54" y1="8" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3A47F4"/>
+      <stop offset="1" stop-color="#2563EB"/>
+    </linearGradient>
+    <linearGradient id="ribbon" x1="20" x2="44" y1="13" y2="50" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FDF2F8"/>
+      <stop offset="1" stop-color="#FBCFE8"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#bg)"/>
+  <path d="M15 26.5C15 23.5 17.5 21 20.5 21H43.5C46.5 21 49 23.5 49 26.5V44.5C49 47.5 46.5 50 43.5 50H20.5C17.5 50 15 47.5 15 44.5V26.5Z" fill="#FFFFFF"/>
+  <path d="M17 27L30.5 37.5C31.4 38.2 32.6 38.2 33.5 37.5L47 27" fill="none" stroke="#DDE4F0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M32 21V50" stroke="url(#ribbon)" stroke-width="6" stroke-linecap="round"/>
+  <path d="M24.5 18.5C21.5 15.5 21.5 11.8 24.1 10.7C27.2 9.5 30.5 13.1 32 19.8C33.5 13.1 36.8 9.5 39.9 10.7C42.5 11.8 42.5 15.5 39.5 18.5C37.3 20.7 34.6 21.3 32 20.2C29.4 21.3 26.7 20.7 24.5 18.5Z" fill="url(#ribbon)"/>
+  <circle cx="32" cy="35" r="5.5" fill="#DB2777"/>
+  <path d="M29.7 35.1L31.3 36.7L34.6 33.4" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
