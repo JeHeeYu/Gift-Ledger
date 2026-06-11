@@ -1,0 +1,24 @@
+:root {
+  --bg: #f8f9fd;
+  --surface: #ffffff;
+  --surface-muted: #f8fafc;
+  --border: #e2e8f0;
+  --border-soft: #eef2f7;
+  --text-primary: #081021;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  --primary: #3a47f4;
+  --primary-pressed: #2632d9;
+  --primary-soft: #eef2ff;
+  --success: #16a34a;
+  --success-soft: #eaf8ef;
+  --danger: #e03137;
+  --danger-soft: #fff1f2;
+  --warning: #f59e0b;
+  --warning-soft: #fff7ed;
+  --shadow-card: 0 18px 48px rgba(15, 23, 42, 0.08);
+  --shadow-soft: 0 10px 28px rgba(15, 23, 42, 0.06);
+  font-family:
+    Pretendard, "Spoqa Han Sans Neo", Inter, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
