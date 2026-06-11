@@ -1,7 +1,10 @@
-import { GIFT_LEDGER_STORAGE_KEY } from '../constants'
-import type { GiftLedgerEntry } from '../types'
+import {
+  GIFT_DESK_STORAGE_KEY,
+  LEGACY_GIFT_LEDGER_STORAGE_KEY,
+} from '../constants'
+import type { GiftDeskEntry } from '../types'
 
-const isGiftLedgerEntry = (value: unknown): value is GiftLedgerEntry => {
+const isGiftDeskEntry = (value: unknown): value is GiftDeskEntry => {
   if (!value || typeof value !== 'object') {
     return false
   }
@@ -18,9 +21,11 @@ const isGiftLedgerEntry = (value: unknown): value is GiftLedgerEntry => {
   )
 }
 
-export const loadGiftLedgerEntries = (): GiftLedgerEntry[] => {
+export const loadGiftDeskEntries = (): GiftDeskEntry[] => {
   try {
-    const rawValue = window.localStorage.getItem(GIFT_LEDGER_STORAGE_KEY)
+    const rawValue =
+      window.localStorage.getItem(GIFT_DESK_STORAGE_KEY) ??
+      window.localStorage.getItem(LEGACY_GIFT_LEDGER_STORAGE_KEY)
 
     if (!rawValue) {
       return []
@@ -32,12 +37,12 @@ export const loadGiftLedgerEntries = (): GiftLedgerEntry[] => {
       return []
     }
 
-    return parsedValue.filter(isGiftLedgerEntry)
+    return parsedValue.filter(isGiftDeskEntry)
   } catch {
     return []
   }
 }
 
-export const saveGiftLedgerEntries = (entries: GiftLedgerEntry[]) => {
-  window.localStorage.setItem(GIFT_LEDGER_STORAGE_KEY, JSON.stringify(entries))
+export const saveGiftDeskEntries = (entries: GiftDeskEntry[]) => {
+  window.localStorage.setItem(GIFT_DESK_STORAGE_KEY, JSON.stringify(entries))
 }

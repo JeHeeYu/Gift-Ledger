@@ -1,0 +1,32 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /giftDeskEvents/{eventId}/entries/{entryId} {
+      allow read, delete: if request.auth != null;
+      allow create, update: if request.auth != null
+        && request.resource.data.keys().hasOnly([
+          'affiliation',
+          'amount',
+          'attendant',
+          'guestName',
+          'id',
+          'memo',
+          'method',
+          'receivedAt',
+          'relation',
+          'side'
+        ])
+        && request.resource.data.id == entryId
+        && request.resource.data.affiliation is string
+        && request.resource.data.amount is number
+        && request.resource.data.attendant is string
+        && request.resource.data.guestName is string
+        && request.resource.data.memo is string
+        && request.resource.data.method in ['cash', 'transfer']
+        && request.resource.data.receivedAt is string
+        && request.resource.data.relation is string
+        && request.resource.data.side in ['groom', 'bride'];
+    }
+  }
+}

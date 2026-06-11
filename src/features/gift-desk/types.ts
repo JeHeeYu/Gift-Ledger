@@ -2,7 +2,7 @@ export type GiftSide = 'bride' | 'groom'
 
 export type GiftMethod = 'cash' | 'transfer'
 
-export type GiftLedgerEntry = {
+export type GiftDeskEntry = {
   affiliation: string
   amount: number
   attendant: string
@@ -15,7 +15,7 @@ export type GiftLedgerEntry = {
   side: GiftSide
 }
 
-export type GiftLedgerFormState = {
+export type GiftDeskFormState = {
   affiliation: string
   amountText: string
   attendant: string
@@ -26,11 +26,19 @@ export type GiftLedgerFormState = {
   side: GiftSide
 }
 
-export type GiftLedgerSideFilter = 'all' | GiftSide
+export type GiftDeskSideFilter = 'all' | GiftSide
 
-export type GiftLedgerSortMode = 'amountDesc' | 'nameAsc' | 'recent'
+export type GiftDeskSortMode = 'amountDesc' | 'nameAsc' | 'recent'
 
-export type GiftLedgerSummary = {
+export type GiftDeskSyncState = {
+  eventId: string
+  lastSyncedAt: string | null
+  message: string
+  mode: 'firebase' | 'local'
+  status: 'connecting' | 'error' | 'local' | 'online'
+}
+
+export type GiftDeskSummary = {
   brideCount: number
   brideTotal: number
   cashTotal: number

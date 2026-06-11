@@ -3,29 +3,29 @@ import {
   GIFT_METHOD_LABEL,
   GIFT_SIDE_LABEL,
 } from '../constants'
-import type { GiftLedgerEntry } from '../types'
+import type { GiftDeskEntry } from '../types'
 import {
   formatReceivedAt,
   formatWon,
-} from '../utils/giftLedger'
+} from '../utils/giftDesk'
 
-type GiftLedgerTableProps = {
-  entries: GiftLedgerEntry[]
-  onDelete: (entry: GiftLedgerEntry) => void
-  onEdit: (entry: GiftLedgerEntry) => void
+type GiftDeskTableProps = {
+  entries: GiftDeskEntry[]
+  onDelete: (entry: GiftDeskEntry) => void
+  onEdit: (entry: GiftDeskEntry) => void
 }
 
-const getSideTone = (side: GiftLedgerEntry['side']) =>
+const getSideTone = (side: GiftDeskEntry['side']) =>
   side === 'groom' ? 'blue' : 'green'
 
-const getMethodTone = (method: GiftLedgerEntry['method']) =>
+const getMethodTone = (method: GiftDeskEntry['method']) =>
   method === 'cash' ? 'gray' : 'orange'
 
-const GiftLedgerTable = ({
+const GiftDeskTable = ({
   entries,
   onDelete,
   onEdit,
-}: GiftLedgerTableProps) => {
+}: GiftDeskTableProps) => {
   if (entries.length === 0) {
     return (
       <div className="ledger-empty">
@@ -104,4 +104,4 @@ const GiftLedgerTable = ({
   )
 }
 
-export default GiftLedgerTable
+export default GiftDeskTable

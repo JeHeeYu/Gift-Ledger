@@ -3,9 +3,9 @@ import {
   GIFT_SIDE_LABEL,
 } from '../constants'
 import type {
-  GiftLedgerEntry,
-  GiftLedgerFormState,
-  GiftLedgerSummary,
+  GiftDeskEntry,
+  GiftDeskFormState,
+  GiftDeskSummary,
 } from '../types'
 
 const CSV_HEADERS = [
@@ -65,7 +65,7 @@ export const formatReceivedAt = (isoValue: string) => {
   }).format(date)
 }
 
-export const createEmptyFormState = (): GiftLedgerFormState => ({
+export const createEmptyFormState = (): GiftDeskFormState => ({
   affiliation: '',
   amountText: '',
   attendant: '',
@@ -77,8 +77,8 @@ export const createEmptyFormState = (): GiftLedgerFormState => ({
 })
 
 export const entryToFormState = (
-  entry: GiftLedgerEntry,
-): GiftLedgerFormState => ({
+  entry: GiftDeskEntry,
+): GiftDeskFormState => ({
   affiliation: entry.affiliation,
   amountText: String(entry.amount),
   attendant: entry.attendant,
@@ -90,9 +90,9 @@ export const entryToFormState = (
 })
 
 export const createEntryFromForm = (
-  form: GiftLedgerFormState,
+  form: GiftDeskFormState,
   receivedAt = new Date().toISOString(),
-): GiftLedgerEntry => ({
+): GiftDeskEntry => ({
   affiliation: form.affiliation.trim(),
   amount: parseAmount(form.amountText),
   attendant: form.attendant.trim(),
@@ -107,17 +107,17 @@ export const createEntryFromForm = (
 
 export const updateEntryFromForm = (
   entryId: string,
-  form: GiftLedgerFormState,
+  form: GiftDeskFormState,
   receivedAt: string,
-): GiftLedgerEntry => ({
+): GiftDeskEntry => ({
   ...createEntryFromForm(form, receivedAt),
   id: entryId,
 })
 
-export const calculateGiftLedgerSummary = (
-  entries: GiftLedgerEntry[],
-): GiftLedgerSummary =>
-  entries.reduce<GiftLedgerSummary>(
+export const calculateGiftDeskSummary = (
+  entries: GiftDeskEntry[],
+): GiftDeskSummary =>
+  entries.reduce<GiftDeskSummary>(
     (summary, entry) => {
       summary.count += 1
       summary.total += entry.amount
@@ -154,7 +154,7 @@ export const normalizeSearchText = (value: string) =>
   value.trim().toLocaleLowerCase('ko-KR')
 
 export const doesEntryMatchSearch = (
-  entry: GiftLedgerEntry,
+  entry: GiftDeskEntry,
   searchQuery: string,
 ) => {
   const normalizedQuery = normalizeSearchText(searchQuery)
@@ -182,7 +182,7 @@ const escapeCsvCell = (value: string | number) => {
   return text
 }
 
-export const createGiftLedgerCsv = (entries: GiftLedgerEntry[]) => {
+export const createGiftDeskCsv = (entries: GiftDeskEntry[]) => {
   const rows = entries.map((entry) => [
     formatReceivedAt(entry.receivedAt),
     entry.guestName,

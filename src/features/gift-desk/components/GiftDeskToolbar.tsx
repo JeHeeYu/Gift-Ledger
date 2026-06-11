@@ -3,26 +3,26 @@ import {
   GIFT_SORT_LABEL,
 } from '../constants'
 import type {
-  GiftLedgerSideFilter,
-  GiftLedgerSortMode,
+  GiftDeskSideFilter,
+  GiftDeskSortMode,
 } from '../types'
 import { AppIcon } from '../../../shared/components'
 
-type GiftLedgerToolbarProps = {
-  filter: GiftLedgerSideFilter
+type GiftDeskToolbarProps = {
+  filter: GiftDeskSideFilter
   resultCount: number
   searchQuery: string
-  sortMode: GiftLedgerSortMode
+  sortMode: GiftDeskSortMode
   totalCount: number
-  onFilterChange: (filter: GiftLedgerSideFilter) => void
+  onFilterChange: (filter: GiftDeskSideFilter) => void
   onSearchQueryChange: (searchQuery: string) => void
-  onSortModeChange: (sortMode: GiftLedgerSortMode) => void
+  onSortModeChange: (sortMode: GiftDeskSortMode) => void
 }
 
-const FILTERS: GiftLedgerSideFilter[] = ['all', 'groom', 'bride']
-const SORT_MODES: GiftLedgerSortMode[] = ['recent', 'amountDesc', 'nameAsc']
+const FILTERS: GiftDeskSideFilter[] = ['all', 'groom', 'bride']
+const SORT_MODES: GiftDeskSortMode[] = ['recent', 'amountDesc', 'nameAsc']
 
-const GiftLedgerToolbar = ({
+const GiftDeskToolbar = ({
   filter,
   resultCount,
   searchQuery,
@@ -31,7 +31,7 @@ const GiftLedgerToolbar = ({
   onFilterChange,
   onSearchQueryChange,
   onSortModeChange,
-}: GiftLedgerToolbarProps) => {
+}: GiftDeskToolbarProps) => {
   return (
     <div className="ledger-toolbar">
       <div className="search-field">
@@ -58,7 +58,7 @@ const GiftLedgerToolbar = ({
         <select
           className="sort-select"
           onChange={(event) =>
-            onSortModeChange(event.target.value as GiftLedgerSortMode)
+            onSortModeChange(event.target.value as GiftDeskSortMode)
           }
           value={sortMode}
         >
@@ -79,4 +79,4 @@ const GiftLedgerToolbar = ({
   )
 }
 
-export default GiftLedgerToolbar
+export default GiftDeskToolbar

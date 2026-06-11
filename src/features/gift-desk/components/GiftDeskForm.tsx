@@ -5,35 +5,35 @@ import {
   GIFT_SIDE_LABEL,
   RELATION_OPTIONS,
 } from '../constants'
-import type { GiftLedgerFormState } from '../types'
+import type { GiftDeskFormState } from '../types'
 import {
   formatCompactWon,
   formatCurrency,
   normalizeAmountText,
   parseAmount,
-} from '../utils/giftLedger'
+} from '../utils/giftDesk'
 import { AppButton, AppIcon } from '../../../shared/components'
 
-type GiftLedgerFormProps = {
+type GiftDeskFormProps = {
   duplicateNameCount: number
-  form: GiftLedgerFormState
+  form: GiftDeskFormState
   isEditing: boolean
   onCancelEdit: () => void
-  onChange: <FieldName extends keyof GiftLedgerFormState>(
+  onChange: <FieldName extends keyof GiftDeskFormState>(
     fieldName: FieldName,
-    value: GiftLedgerFormState[FieldName],
+    value: GiftDeskFormState[FieldName],
   ) => void
   onSubmit: () => void
 }
 
-const GiftLedgerForm = ({
+const GiftDeskForm = ({
   duplicateNameCount,
   form,
   isEditing,
   onCancelEdit,
   onChange,
   onSubmit,
-}: GiftLedgerFormProps) => {
+}: GiftDeskFormProps) => {
   const amount = parseAmount(form.amountText)
   const isSubmitDisabled = !form.guestName.trim() || amount <= 0
 
@@ -211,4 +211,4 @@ const GiftLedgerForm = ({
   )
 }
 
-export default GiftLedgerForm
+export default GiftDeskForm

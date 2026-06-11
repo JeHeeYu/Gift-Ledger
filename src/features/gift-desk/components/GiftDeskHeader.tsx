@@ -1,18 +1,26 @@
 import { AppButton, AppIcon } from '../../../shared/components'
-import type { GiftLedgerSummary } from '../types'
-import { formatWon } from '../utils/giftLedger'
+import type {
+  GiftDeskSummary,
+  GiftDeskSyncState,
+} from '../types'
+import {
+  formatReceivedAt,
+  formatWon,
+} from '../utils/giftDesk'
 
-type GiftLedgerHeaderProps = {
+type GiftDeskHeaderProps = {
   onExport: () => void
   onPrint: () => void
-  summary: GiftLedgerSummary
+  summary: GiftDeskSummary
+  syncState: GiftDeskSyncState
 }
 
-const GiftLedgerHeader = ({
+const GiftDeskHeader = ({
   onExport,
   onPrint,
   summary,
-}: GiftLedgerHeaderProps) => {
+  syncState,
+}: GiftDeskHeaderProps) => {
   return (
     <header className="ledger-header">
       <div className="ledger-header__title-group">
@@ -21,6 +29,15 @@ const GiftLedgerHeader = ({
         <p>2026.06.12 본식 접수 운영</p>
       </div>
       <div className="ledger-header__right">
+        <div className={`sync-status sync-status--${syncState.status}`}>
+          <span>{syncState.mode === 'firebase' ? 'Firebase' : 'Local'}</span>
+          <strong>{syncState.message}</strong>
+          <small>
+            {syncState.lastSyncedAt
+              ? formatReceivedAt(syncState.lastSyncedAt)
+              : syncState.eventId}
+          </small>
+        </div>
         <div className="ledger-header__total">
           <span>총 접수액</span>
           <strong>{formatWon(summary.total)}</strong>
@@ -47,4 +64,4 @@ const GiftLedgerHeader = ({
   )
 }
 
-export default GiftLedgerHeader
+export default GiftDeskHeader

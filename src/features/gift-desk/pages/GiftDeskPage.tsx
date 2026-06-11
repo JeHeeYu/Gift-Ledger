@@ -1,34 +1,34 @@
 import { useMemo, useState } from 'react'
 import { AppConfirmModal } from '../../../shared/components'
 import {
-  GiftLedgerForm,
-  GiftLedgerHeader,
-  GiftLedgerTable,
-  GiftLedgerToolbar,
-  GiftSummaryCards,
+  GiftDeskForm,
+  GiftDeskHeader,
+  GiftDeskSummaryCards,
+  GiftDeskTable,
+  GiftDeskToolbar,
 } from '../components'
-import { useGiftLedgerEntries } from '../hooks/useGiftLedgerEntries'
+import { useGiftDeskEntries } from '../hooks/useGiftDeskEntries'
 import type {
-  GiftLedgerEntry,
-  GiftLedgerFormState,
-  GiftLedgerSideFilter,
-  GiftLedgerSortMode,
+  GiftDeskEntry,
+  GiftDeskFormState,
+  GiftDeskSideFilter,
+  GiftDeskSortMode,
 } from '../types'
 import {
-  calculateGiftLedgerSummary,
+  calculateGiftDeskSummary,
   createEmptyFormState,
   createEntryFromForm,
-  createGiftLedgerCsv,
+  createGiftDeskCsv,
   doesEntryMatchSearch,
   downloadTextFile,
   entryToFormState,
   normalizeSearchText,
   updateEntryFromForm,
-} from '../utils/giftLedger'
+} from '../utils/giftDesk'
 
 const sortEntries = (
-  entries: GiftLedgerEntry[],
-  sortMode: GiftLedgerSortMode,
+  entries: GiftDeskEntry[],
+  sortMode: GiftDeskSortMode,
 ) => {
   const nextEntries = [...entries]
 
@@ -50,25 +50,26 @@ const sortEntries = (
   ))
 }
 
-const GiftLedgerPage = () => {
+const GiftDeskPage = () => {
   const {
     addEntry,
     deleteEntry,
     entries,
+    syncState,
     updateEntry,
-  } = useGiftLedgerEntries()
-  const [form, setForm] = useState<GiftLedgerFormState>(() =>
+  } = useGiftDeskEntries()
+  const [form, setForm] = useState<GiftDeskFormState>(() =>
     createEmptyFormState(),
   )
   const [editingEntryId, setEditingEntryId] = useState<string | null>(null)
   const [pendingDeleteEntry, setPendingDeleteEntry] =
-    useState<GiftLedgerEntry | null>(null)
+    useState<GiftDeskEntry | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
-  const [sideFilter, setSideFilter] = useState<GiftLedgerSideFilter>('all')
-  const [sortMode, setSortMode] = useState<GiftLedgerSortMode>('recent')
+  const [sideFilter, setSideFilter] = useState<GiftDeskSideFilter>('all')
+  const [sortMode, setSortMode] = useState<GiftDeskSortMode>('recent')
 
   const summary = useMemo(
-    () => calculateGiftLedgerSummary(entries),
+    () => calculateGiftDeskSummary(entries),
     [entries],
   )
 
@@ -95,9 +96,9 @@ const GiftLedgerPage = () => {
     )).length
   }, [editingEntryId, entries, form.guestName])
 
-  const handleFormChange = <FieldName extends keyof GiftLedgerFormState>(
+  const handleFormChange = <FieldName extends keyof GiftDeskFormState>(
     fieldName: FieldName,
-    value: GiftLedgerFormState[FieldName],
+    value: GiftDeskFormState[FieldName],
   ) => {
     setForm((currentForm) => ({
       ...currentForm,
@@ -133,7 +134,7 @@ const GiftLedgerPage = () => {
     resetForm()
   }
 
-  const handleEdit = (entry: GiftLedgerEntry) => {
+  const handleEdit = (entry: GiftDeskEntry) => {
     setEditingEntryId(entry.id)
     setForm(entryToFormState(entry))
   }
@@ -151,23 +152,24 @@ const GiftLedgerPage = () => {
   }
 
   const handleExport = () => {
-    const csv = createGiftLedgerCsv(entries)
+    const csv = createGiftDeskCsv(entries)
     const today = new Date().toISOString().slice(0, 10)
 
-    downloadTextFile(csv, `gift-ledger-${today}.csv`, 'text/csv;charset=utf-8')
+    downloadTextFile(csv, `gift-desk-${today}.csv`, 'text/csv;charset=utf-8')
   }
 
   return (
-    <main className="gift-ledger-page">
-      <GiftLedgerHeader
+    <main className="gift-desk-page">
+      <GiftDeskHeader
         onExport={handleExport}
         onPrint={() => window.print()}
         summary={summary}
+        syncState={syncState}
       />
-      <GiftSummaryCards summary={summary} />
+      <GiftDeskSummaryCards summary={summary} />
       <section className="ledger-workspace">
         <aside className="ledger-sidebar">
-          <GiftLedgerForm
+          <GiftDeskForm
             duplicateNameCount={duplicateNameCount}
             form={form}
             isEditing={editingEntryId !== null}
@@ -183,7 +185,7 @@ const GiftLedgerPage = () => {
               <h2>접수 명부</h2>
             </div>
           </div>
-          <GiftLedgerToolbar
+          <GiftDeskToolbar
             filter={sideFilter}
             onFilterChange={setSideFilter}
             onSearchQueryChange={setSearchQuery}
@@ -193,7 +195,7 @@ const GiftLedgerPage = () => {
             sortMode={sortMode}
             totalCount={entries.length}
           />
-          <GiftLedgerTable
+          <GiftDeskTable
             entries={visibleEntries}
             onDelete={setPendingDeleteEntry}
             onEdit={handleEdit}
@@ -216,4 +218,4 @@ const GiftLedgerPage = () => {
   )
 }
 
-export default GiftLedgerPage
+export default GiftDeskPage

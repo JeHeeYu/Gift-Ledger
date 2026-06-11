@@ -1,12 +1,12 @@
 import { AppIcon } from '../../../shared/components'
-import type { GiftLedgerSummary } from '../types'
-import { formatWon } from '../utils/giftLedger'
+import type { GiftDeskSummary } from '../types'
+import { formatWon } from '../utils/giftDesk'
 
-type GiftSummaryCardsProps = {
-  summary: GiftLedgerSummary
+type GiftDeskSummaryCardsProps = {
+  summary: GiftDeskSummary
 }
 
-const GiftSummaryCards = ({ summary }: GiftSummaryCardsProps) => {
+const GiftDeskSummaryCards = ({ summary }: GiftDeskSummaryCardsProps) => {
   return (
     <section className="summary-grid">
       <article className="summary-card summary-card--primary">
@@ -55,4 +55,4 @@ const GiftSummaryCards = ({ summary }: GiftSummaryCardsProps) => {
   )
 }
 
-export default GiftSummaryCards
+export default GiftDeskSummaryCards

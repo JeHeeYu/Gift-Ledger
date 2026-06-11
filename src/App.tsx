@@ -1,8 +1,8 @@
 import './App.css'
-import { GiftLedgerPage } from './features/gift-ledger'
+import { GiftDeskPage } from './features/gift-desk'
 
 const App = () => {
-  return <GiftLedgerPage />
+  return <GiftDeskPage />
 }
 
 export default App
