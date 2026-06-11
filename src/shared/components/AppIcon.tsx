@@ -5,8 +5,8 @@ export type AppIconName =
   | 'check'
   | 'download'
   | 'edit'
+  | 'excel'
   | 'plus'
-  | 'printer'
   | 'search'
   | 'trash'
   | 'users'
@@ -30,12 +30,15 @@ const ICON_PATHS: Record<AppIconName, string[]> = {
     'M12 20H21',
     'M16.5 3.5A2.12 2.12 0 0 1 19.5 6.5L7 19L3 20L4 16L16.5 3.5Z',
   ],
-  plus: ['M12 5V19', 'M5 12H19'],
-  printer: [
-    'M7 8V3H17V8',
-    'M7 17H5A2 2 0 0 1 3 15V10A2 2 0 0 1 5 8H19A2 2 0 0 1 21 10V15A2 2 0 0 1 19 17H17',
-    'M7 14H17V21H7V14Z',
+  excel: [
+    'M14 3H6A2 2 0 0 0 4 5V19A2 2 0 0 0 6 21H18A2 2 0 0 0 20 19V9L14 3Z',
+    'M14 3V9H20',
+    'M8 12L12 17',
+    'M12 12L8 17',
+    'M15 13H17',
+    'M15 16H17',
   ],
+  plus: ['M12 5V19', 'M5 12H19'],
   search: ['M21 21L15.8 15.8', 'M11 18A7 7 0 1 0 11 4A7 7 0 0 0 11 18Z'],
   trash: [
     'M3 6H21',

@@ -12,7 +12,7 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 32px;
-  min-height: 96px;
+  min-height: 82px;
 }
 
 .ledger-header__title-group {
@@ -41,14 +41,6 @@
   font-size: 30px;
   font-weight: 850;
   line-height: 40px;
-}
-
-.ledger-header p {
-  margin: 6px 0 0;
-  color: var(--text-secondary);
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 21px;
 }
 
 .ledger-header__right {
@@ -153,6 +145,10 @@
   gap: 8px;
 }
 
+.excel-icon {
+  color: #15803d;
+}
+
 .summary-grid {
   display: grid;
   grid-template-columns: 1.15fr 1fr 1fr 1.35fr;
@@ -195,9 +191,9 @@
   background: #eff6ff;
 }
 
-.summary-card__icon--green {
-  color: #16a34a;
-  background: var(--success-soft);
+.summary-card__icon--pink {
+  color: #db2777;
+  background: #fdf2f8;
 }
 
 .summary-card__icon--orange {
@@ -492,7 +488,7 @@
 .ledger-table__head,
 .ledger-row {
   display: grid;
-  grid-template-columns: 108px 150px 86px 1.15fr 132px 72px 1.1fr 84px;
+  grid-template-columns: 154px 150px 86px 1.08fr 132px 72px 1fr 84px;
   align-items: center;
   gap: 12px;
 }
@@ -507,6 +503,18 @@
   font-size: 12px;
   font-weight: 850;
   line-height: 18px;
+}
+
+.ledger-table__head span:nth-child(3),
+.ledger-table__head span:nth-child(6) {
+  justify-self: center;
+  text-align: center;
+}
+
+.ledger-table__head span:nth-child(5),
+.ledger-table__head span:nth-child(8) {
+  justify-self: end;
+  text-align: right;
 }
 
 .ledger-table__body {
@@ -531,12 +539,22 @@
   background: #fbfcff;
 }
 
+.ledger-row > div:nth-child(3),
+.ledger-row > div:nth-child(6) {
+  display: flex;
+  justify-content: center;
+}
+
 .ledger-row__time,
 .ledger-row__name,
 .ledger-row__sub {
   display: grid;
   min-width: 0;
   gap: 2px;
+}
+
+.ledger-row__time {
+  align-content: center;
 }
 
 .ledger-row__time strong,
@@ -549,6 +567,11 @@
   line-height: 20px;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.ledger-row__time strong {
+  font-size: 13px;
+  line-height: 18px;
 }
 
 .ledger-row__time span,
@@ -734,6 +757,11 @@
   background: var(--success-soft);
 }
 
+.app-badge--pink {
+  color: #db2777;
+  background: #fdf2f8;
+}
+
 .app-badge--orange {
   color: #b45309;
   background: var(--warning-soft);
@@ -848,6 +876,6 @@
 
   .ledger-table__head,
   .ledger-row {
-    grid-template-columns: 108px 150px 86px 1.15fr 132px 72px 1.1fr;
+    grid-template-columns: 154px 150px 86px 1.08fr 132px 72px 1fr;
   }
 }

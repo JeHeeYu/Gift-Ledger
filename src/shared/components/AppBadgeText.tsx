@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 
 type AppBadgeTextProps = {
   children: ReactNode
-  tone?: 'blue' | 'green' | 'gray' | 'orange' | 'red'
+  tone?: 'blue' | 'green' | 'gray' | 'orange' | 'pink' | 'red'
 }
 
 const AppBadgeText = ({

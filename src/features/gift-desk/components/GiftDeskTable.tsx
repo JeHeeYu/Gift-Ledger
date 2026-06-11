@@ -16,7 +16,7 @@ type GiftDeskTableProps = {
 }
 
 const getSideTone = (side: GiftDeskEntry['side']) =>
-  side === 'groom' ? 'blue' : 'green'
+  side === 'groom' ? 'blue' : 'pink'
 
 const getMethodTone = (method: GiftDeskEntry['method']) =>
   method === 'cash' ? 'gray' : 'orange'
@@ -55,7 +55,6 @@ const GiftDeskTable = ({
           >
             <div className="ledger-row__time">
               <strong>{formatReceivedAt(entry.receivedAt)}</strong>
-              <span>자동 기록</span>
             </div>
             <div className="ledger-row__name">
               <strong>{entry.guestName}</strong>

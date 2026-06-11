@@ -30,7 +30,7 @@ const GiftDeskSummaryCards = ({ summary }: GiftDeskSummaryCardsProps) => {
         </div>
       </article>
       <article className="summary-card">
-        <div className="summary-card__icon summary-card__icon--green">
+        <div className="summary-card__icon summary-card__icon--pink">
           <AppIcon name="users" />
         </div>
         <div>

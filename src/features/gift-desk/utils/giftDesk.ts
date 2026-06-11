@@ -67,7 +67,7 @@ export const formatReceivedAt = (isoValue: string) => {
 
 export const createEmptyFormState = (): GiftDeskFormState => ({
   affiliation: '',
-  amountText: '',
+  amountText: '100000',
   attendant: '',
   guestName: '',
   memo: '',

@@ -10,14 +10,12 @@ import {
 
 type GiftDeskHeaderProps = {
   onExport: () => void
-  onPrint: () => void
   summary: GiftDeskSummary
   syncState: GiftDeskSyncState
 }
 
 const GiftDeskHeader = ({
   onExport,
-  onPrint,
   summary,
   syncState,
 }: GiftDeskHeaderProps) => {
@@ -26,11 +24,10 @@ const GiftDeskHeader = ({
       <div className="ledger-header__title-group">
         <div className="ledger-header__eyebrow">Wedding Gift Desk</div>
         <h1>축의대 명부</h1>
-        <p>2026.06.12 본식 접수 운영</p>
       </div>
       <div className="ledger-header__right">
         <div className={`sync-status sync-status--${syncState.status}`}>
-          <span>{syncState.mode === 'firebase' ? 'Firebase' : 'Local'}</span>
+          <span>{syncState.mode === 'firebase' ? '서버 연결' : '로컬 저장'}</span>
           <strong>{syncState.message}</strong>
           <small>
             {syncState.lastSyncedAt
@@ -45,18 +42,11 @@ const GiftDeskHeader = ({
         </div>
         <div className="ledger-header__actions">
           <AppButton
-            leadingIcon={<AppIcon name="download" />}
+            leadingIcon={<AppIcon className="excel-icon" name="excel" />}
             onClick={onExport}
             variant="secondary"
           >
-            CSV
-          </AppButton>
-          <AppButton
-            leadingIcon={<AppIcon name="printer" />}
-            onClick={onPrint}
-            variant="secondary"
-          >
-            인쇄
+            엑셀
           </AppButton>
         </div>
       </div>

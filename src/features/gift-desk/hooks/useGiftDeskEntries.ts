@@ -22,7 +22,7 @@ const createInitialSyncState = (): GiftDeskSyncState => {
     return {
       eventId: giftDeskEventId,
       lastSyncedAt: null,
-      message: 'Firebase 설정 없음',
+      message: '이 기기에만 저장',
       mode: 'local',
       status: 'local',
     }
@@ -31,10 +31,26 @@ const createInitialSyncState = (): GiftDeskSyncState => {
   return {
     eventId: giftDeskEventId,
     lastSyncedAt: null,
-    message: 'Firebase 연결 중',
+    message: '연결 중',
     mode: 'firebase',
     status: 'connecting',
   }
+}
+
+const getSyncErrorMessage = (error: unknown) => {
+  if (!(error instanceof Error)) {
+    return '서버 점검 필요'
+  }
+
+  if (error.message.includes('auth/configuration-not-found')) {
+    return '인증 설정 필요'
+  }
+
+  if (error.message.includes('permission-denied')) {
+    return '권한 확인 필요'
+  }
+
+  return '서버 점검 필요'
 }
 
 export const useGiftDeskEntries = () => {
@@ -67,7 +83,7 @@ export const useGiftDeskEntries = () => {
         setSyncState((currentState) => ({
           ...currentState,
           lastSyncedAt: new Date().toISOString(),
-          message: '실시간 동기화 중',
+          message: '정상',
           status: 'online',
         }))
       },
@@ -78,7 +94,7 @@ export const useGiftDeskEntries = () => {
 
         setSyncState((currentState) => ({
           ...currentState,
-          message: error.message,
+          message: getSyncErrorMessage(error),
           status: 'error',
         }))
       },
@@ -93,8 +109,7 @@ export const useGiftDeskEntries = () => {
 
         setSyncState((currentState) => ({
           ...currentState,
-          message:
-            error instanceof Error ? error.message : 'Firebase 연결 실패',
+          message: getSyncErrorMessage(error),
           status: 'error',
         }))
       })
@@ -108,7 +123,7 @@ export const useGiftDeskEntries = () => {
   const reportWriteError = (error: unknown) => {
     setSyncState((currentState) => ({
       ...currentState,
-      message: error instanceof Error ? error.message : 'Firebase 저장 실패',
+      message: getSyncErrorMessage(error),
       status: 'error',
     }))
   }

@@ -53,7 +53,7 @@ const GiftDeskForm = ({
       <div className="panel-heading">
         <div>
           <span>Guest Entry</span>
-          <h2>{isEditing ? '명부 수정' : '빠른 등록'}</h2>
+          <h2>{isEditing ? '명부 수정' : '명부 등록'}</h2>
         </div>
         {isEditing ? (
           <button
@@ -183,7 +183,7 @@ const GiftDeskForm = ({
         <span>메모</span>
         <textarea
           onChange={(event) => onChange('memo', event.target.value)}
-          placeholder="동명이인, 전달사항"
+          placeholder="메모 입력"
           rows={3}
           value={form.memo}
         />

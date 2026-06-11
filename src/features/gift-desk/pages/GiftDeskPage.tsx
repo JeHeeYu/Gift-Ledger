@@ -162,7 +162,6 @@ const GiftDeskPage = () => {
     <main className="gift-desk-page">
       <GiftDeskHeader
         onExport={handleExport}
-        onPrint={() => window.print()}
         summary={summary}
         syncState={syncState}
       />
